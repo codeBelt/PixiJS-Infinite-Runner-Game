@@ -1,4 +1,4 @@
-import { App } from '../../main.ts';
+import { App } from '../main.ts';
 import { Container } from 'pixi.js';
 
 export abstract class Scene {

@@ -1,5 +1,5 @@
 import Matter from 'matter-js';
-import { App } from '../../main.ts';
+import { App } from '../main.ts';
 import { Config } from './Config.ts';
 import { Platform } from './Platform.ts';
 import { Diamond } from './Diamond.ts';

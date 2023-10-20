@@ -1,16 +1,14 @@
 import Matter from 'matter-js';
 import * as PIXI from 'pixi.js';
-import { Loader } from './Loader';
-import { ScenesManager } from './ScenesManager';
-import { Config } from '../game/Config.ts';
+import { Loader } from './Loader.ts';
+import { ScenesManager } from './ScenesManager.ts';
 import { Sprite, Texture } from 'pixi.js';
-import { GameScene } from '../game/GameScene.ts';
 
 export class MainApplication {
   loader: Loader = new Loader();
   app: PIXI.Application = new PIXI.Application({ resizeTo: window });
   scenesManager: ScenesManager = new ScenesManager();
-  physics: Matter.Engine;
+  physics: Matter.Engine = Matter.Engine.create();
 
   constructor() {}
 
@@ -25,11 +23,10 @@ export class MainApplication {
     this.app.stage.interactive = true;
     this.app.stage.addChild(this.scenesManager.container);
 
-    this.createPhysics();
+    this._createPhysics();
   }
 
-  createPhysics() {
-    this.physics = Matter.Engine.create();
+  private _createPhysics() {
     const runner = Matter.Runner.create();
     Matter.Runner.run(runner, this.physics);
   }

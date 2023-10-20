@@ -1,5 +1,5 @@
 import Matter, { Body } from 'matter-js';
-import { App } from '../../main.ts';
+import { App } from '../main.ts';
 import { Sprite } from 'pixi.js';
 
 export class Diamond {

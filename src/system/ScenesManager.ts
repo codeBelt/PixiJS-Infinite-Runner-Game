@@ -1,7 +1,5 @@
-import { App } from '../../main.ts';
 import { Container } from 'pixi.js';
 import { Scene } from './Scene.ts';
-import { Constructor } from 'type-fest';
 import { Config } from '../game/Config.ts';
 
 export class ScenesManager {

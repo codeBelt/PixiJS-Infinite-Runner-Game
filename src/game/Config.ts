@@ -1,4 +1,4 @@
-import { GameScene } from './GameScene';
+import { GameScene } from './GameScene.ts';
 
 export const Config = {
   bgSpeed: 2,

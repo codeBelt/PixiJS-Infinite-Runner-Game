@@ -1,4 +1,4 @@
-import { App } from '../../main.ts';
+import { App } from '../main.ts';
 import { Config } from './Config.ts';
 import { Container, Sprite } from 'pixi.js';
 

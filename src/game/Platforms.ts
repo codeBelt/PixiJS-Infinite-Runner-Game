@@ -1,4 +1,4 @@
-import { Platform } from './Platform';
+import { Platform } from './Platform.ts';
 import { Config } from './Config.ts';
 import { Container } from 'pixi.js';
 

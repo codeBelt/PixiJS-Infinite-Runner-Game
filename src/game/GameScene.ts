@@ -1,10 +1,10 @@
 import Matter from 'matter-js';
-import { LabelScore } from './LabelScore';
-import { App } from '../../main.ts';
-import { Background } from './Background';
-import { Scene } from '../system/Scene';
-import { Hero } from './Hero';
-import { Platforms } from './Platforms';
+import { LabelScore } from './LabelScore.ts';
+import { App } from '../main.ts';
+import { Background } from './Background.ts';
+import { Scene } from '../system/Scene.ts';
+import { Hero } from './Hero.ts';
+import { Platforms } from './Platforms.ts';
 
 export class GameScene extends Scene {
   // hero;

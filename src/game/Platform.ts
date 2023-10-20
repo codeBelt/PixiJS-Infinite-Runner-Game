@@ -1,7 +1,7 @@
 import Matter from 'matter-js';
 import * as PIXI from 'pixi.js';
-import { App } from '../../main.ts';
-import { Diamond } from './Diamond';
+import { App } from '../main.ts';
+import { Diamond } from './Diamond.ts';
 import { Config } from './Config.ts';
 
 export class Platform {
