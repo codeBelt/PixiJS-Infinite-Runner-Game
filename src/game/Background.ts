@@ -11,6 +11,18 @@ export class Background {
     this._createSprites();
   }
 
+  update(dt): void {
+    const offset = this.speed * dt;
+
+    this.sprites.forEach((sprite) => {
+      this._move(sprite, offset);
+    });
+  }
+
+  destroy(): void {
+    this.container.destroy();
+  }
+
   private _createSprites(): void {
     this.sprites = [];
 
@@ -29,7 +41,7 @@ export class Background {
     this.sprites.push(sprite);
   }
 
-  move(sprite: Sprite, offset: number): void {
+  private _move(sprite: Sprite, offset: number): void {
     const spriteRightX = sprite.x + sprite.width;
 
     const screenLeftX = 0;
@@ -39,17 +51,5 @@ export class Background {
     }
 
     sprite.x -= offset;
-  }
-
-  update(dt): void {
-    const offset = this.speed * dt;
-
-    this.sprites.forEach((sprite) => {
-      this.move(sprite, offset);
-    });
-  }
-
-  destroy(): void {
-    this.container.destroy();
   }
 }

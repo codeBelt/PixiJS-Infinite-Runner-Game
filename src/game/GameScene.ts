@@ -12,6 +12,10 @@ export class GameScene extends Scene {
   // platfroms;
   // bg;
 
+  constructor() {
+    super();
+  }
+
   create() {
     this._createBackground();
     this._createHero();
@@ -26,7 +30,8 @@ export class GameScene extends Scene {
   }
 
   destroy(): void {
-    Matter.Events.off(App.physics, 'collisionStart', this._onCollisionStart.bind(this));
+    console.log(`destroy`);
+    Matter.Events.off(App.physics, 'collisionStart', this.bind);
     App.app.ticker.remove(this.update, this);
     this.bg.destroy();
     this.hero.destroy();
@@ -43,10 +48,13 @@ export class GameScene extends Scene {
   }
 
   private _setEvents(): void {
-    Matter.Events.on(App.physics, 'collisionStart', this._onCollisionStart.bind(this));
+    this.bind = this._onCollisionStart.bind(this);
+    Matter.Events.on(App.physics, 'collisionStart', this.bind);
   }
 
   private _onCollisionStart(event): void {
+    console.log(`event`, event);
+    console.log(`this`, this);
     const colliders = [event.pairs[0].bodyA, event.pairs[0].bodyB];
     const hero = colliders.find((body) => body.gameHero);
     const platform = colliders.find((body) => body.gamePlatform);

@@ -3,11 +3,10 @@ import { App } from '../main.ts';
 import { Sprite } from 'pixi.js';
 
 export class Diamond {
-  sprite: Sprite | null = null;
   body: Body | null = null;
+  sprite: Sprite = App.sprite('diamond');
 
   constructor(x: number, y: number) {
-    this.sprite = App.sprite('diamond');
     this.sprite.x = x;
     this.sprite.y = y;
 

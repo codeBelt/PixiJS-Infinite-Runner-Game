@@ -1,99 +1,99 @@
-import Matter from 'matter-js';
+import Matter, { Body } from 'matter-js';
 import * as PIXI from 'pixi.js';
 import { App } from '../main.ts';
 import { Diamond } from './Diamond.ts';
 import { Config } from './Config.ts';
+import { Container } from 'pixi.js';
 
 export class Platform {
-  container;
-  diamonds = [];
-  body;
-  tileSize;
-  width;
-  height;
+  container: Container;
+  private _body: Body | null = null;
+  private _diamonds: Diamond[] = [];
+  private _dx: number = Config.platforms.moveSpeed;
+  private readonly _cols: number;
+  private readonly _height: number;
+  private readonly _rows: number;
+  private readonly _tileSize: number;
+  private readonly _width: number;
 
-  constructor(rows, cols, x) {
-    this.rows = rows;
-    this.cols = cols;
+  constructor(rows: number, cols: number, x: number) {
+    this._rows = rows;
+    this._cols = cols;
+    this._tileSize = PIXI.Texture.from('tile').width;
+    this._width = this._tileSize * this._cols;
+    this._height = this._tileSize * this._rows;
 
-    this.tileSize = PIXI.Texture.from('tile').width;
-    this.width = this.tileSize * this.cols;
-    this.height = this.tileSize * this.rows;
-
-    this.createContainer(x);
-    this.createTiles();
-
-    this.dx = Config.platforms.moveSpeed;
-    this.createBody();
-    this.createDiamonds();
+    this._createContainer(x);
+    this._createTiles();
+    this._createBody();
+    this._createDiamonds();
   }
 
-  createDiamonds() {
+  move(): void {
+    if (this._body) {
+      Matter.Body.setPosition(this._body, {
+        x: this._body.position.x + this._dx,
+        y: this._body.position.y,
+      });
+      this.container.x = this._body.position.x - this._width / 2;
+      this.container.y = this._body.position.y - this._height / 2;
+    }
+  }
+
+  destroy(): void {
+    Matter.World.remove(App.physics.world, this._body);
+    this._diamonds.forEach((diamond) => diamond.destroy());
+    this.container.destroy();
+  }
+
+  private _createDiamonds(): void {
     const y = Config.diamonds.offset.min + Math.random() * (Config.diamonds.offset.max - Config.diamonds.offset.min);
 
-    for (let i = 0; i < this.cols; i++) {
+    for (let i = 0; i < this._cols; i++) {
       if (Math.random() < Config.diamonds.chance) {
-        this.createDiamond(this.tileSize * i, -y);
+        this._createDiamond(this._tileSize * i, -y);
       }
     }
   }
 
-  createDiamond(x, y) {
+  private _createDiamond(x: number, y: number): void {
     const diamond = new Diamond(x, y);
     this.container.addChild(diamond.sprite);
     diamond.createBody();
-    this.diamonds.push(diamond);
+    this._diamonds.push(diamond);
   }
 
-  createBody() {
-    this.body = Matter.Bodies.rectangle(
-      this.width / 2 + this.container.x,
-      this.height / 2 + this.container.y,
-      this.width,
-      this.height,
+  private _createBody(): void {
+    this._body = Matter.Bodies.rectangle(
+      this._width / 2 + this.container.x,
+      this._height / 2 + this.container.y,
+      this._width,
+      this._height,
       { friction: 0, isStatic: true }
     );
-    Matter.World.add(App.physics.world, this.body);
-    this.body.gamePlatform = this;
+    Matter.World.add(App.physics.world, this._body);
+    this._body.gamePlatform = this;
   }
 
-  createContainer(x) {
-    this.container = new PIXI.Container();
+  private _createContainer(x: number): void {
+    this.container = new Container();
     this.container.x = x;
-    this.container.y = window.innerHeight - this.height;
+    this.container.y = window.innerHeight - this._height;
   }
 
-  createTiles() {
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
-        this.createTile(row, col);
+  private _createTiles(): void {
+    for (let row = 0; row < this._rows; row++) {
+      for (let col = 0; col < this._cols; col++) {
+        this._createTile(row, col);
       }
     }
   }
 
-  createTile(row, col) {
-    //
+  private _createTile(row: number, col: number): void {
     const texture = row === 0 ? 'platform' : 'tile';
     const tile = App.sprite(texture);
     this.container.addChild(tile);
     tile.x = col * tile.width;
     tile.y = row * tile.height;
-  }
-
-  move() {
-    if (this.body) {
-      Matter.Body.setPosition(this.body, {
-        x: this.body.position.x + this.dx,
-        y: this.body.position.y,
-      });
-      this.container.x = this.body.position.x - this.width / 2;
-      this.container.y = this.body.position.y - this.height / 2;
-    }
-  }
-
-  destroy() {
-    Matter.World.remove(App.physics.world, this.body);
-    this.diamonds.forEach((diamond) => diamond.destroy());
-    this.container.destroy();
   }
 }
