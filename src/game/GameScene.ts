@@ -13,14 +13,28 @@ export class GameScene extends Scene {
   // bg;
 
   create() {
-    this.createBackground();
-    this.createHero();
-    this.createPlatforms();
-    this.setEvents();
-    this.createUI();
+    this._createBackground();
+    this._createHero();
+    this._createPlatforms();
+    this._setEvents();
+    this._createUI();
   }
 
-  createUI(): void {
+  update(dt): void {
+    this.bg.update(dt);
+    this.platfroms.update(dt);
+  }
+
+  destroy(): void {
+    Matter.Events.off(App.physics, 'collisionStart', this._onCollisionStart.bind(this));
+    App.app.ticker.remove(this.update, this);
+    this.bg.destroy();
+    this.hero.destroy();
+    this.platfroms.destroy();
+    this.labelScore.destroy();
+  }
+
+  private _createUI(): void {
     this.labelScore = new LabelScore();
     this.container.addChild(this.labelScore);
     this.hero.sprite.on('score', () => {
@@ -28,11 +42,11 @@ export class GameScene extends Scene {
     });
   }
 
-  setEvents(): void {
-    Matter.Events.on(App.physics, 'collisionStart', this.onCollisionStart.bind(this));
+  private _setEvents(): void {
+    Matter.Events.on(App.physics, 'collisionStart', this._onCollisionStart.bind(this));
   }
 
-  onCollisionStart(event): void {
+  private _onCollisionStart(event): void {
     const colliders = [event.pairs[0].bodyA, event.pairs[0].bodyB];
     const hero = colliders.find((body) => body.gameHero);
     const platform = colliders.find((body) => body.gamePlatform);
@@ -48,7 +62,7 @@ export class GameScene extends Scene {
     }
   }
 
-  createHero(): void {
+  private _createHero(): void {
     this.hero = new Hero();
     this.container.addChild(this.hero.sprite);
 
@@ -62,27 +76,13 @@ export class GameScene extends Scene {
     });
   }
 
-  createBackground(): void {
+  private _createBackground(): void {
     this.bg = new Background();
     this.container.addChild(this.bg.container);
   }
 
-  createPlatforms(): void {
+  private _createPlatforms(): void {
     this.platfroms = new Platforms();
     this.container.addChild(this.platfroms.container);
-  }
-
-  update(dt): void {
-    this.bg.update(dt);
-    this.platfroms.update(dt);
-  }
-
-  destroy(): void {
-    Matter.Events.off(App.physics, 'collisionStart', this.onCollisionStart.bind(this));
-    App.app.ticker.remove(this.update, this);
-    this.bg.destroy();
-    this.hero.destroy();
-    this.platfroms.destroy();
-    this.labelScore.destroy();
   }
 }

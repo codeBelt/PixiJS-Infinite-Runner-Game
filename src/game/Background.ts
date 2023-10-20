@@ -8,18 +8,18 @@ export class Background {
   sprites: Sprite[] = [];
 
   constructor() {
-    this.createSprites();
+    this._createSprites();
   }
 
-  createSprites(): void {
+  private _createSprites(): void {
     this.sprites = [];
 
     for (let i = 0; i < 3; i++) {
-      this.createSprite(i);
+      this._createSprite(i);
     }
   }
 
-  createSprite(i: number): void {
+  private _createSprite(i: number): void {
     const sprite = App.sprite('bg');
 
     sprite.x = sprite.width * i;

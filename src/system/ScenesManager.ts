@@ -20,8 +20,10 @@ export class ScenesManager {
   }
 
   update(dt): void {
-    if (this.scene && this.scene.update) {
-      this.scene.update(dt);
+    if (!this.scene && !this.scene) {
+      return;
     }
+
+    this.scene.update(dt);
   }
 }
