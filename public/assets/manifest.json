@@ -1,0 +1,17 @@
+{
+  "bundles": [
+    {
+      "name": "game-screen",
+      "assets": [
+        { "name": "bg", "srcs": "assets/bg.png" },
+        { "name": "diamond", "srcs": "assets/diamond.png" },
+        { "name": "hero", "srcs": "assets/hero.png" },
+        { "name": "jump", "srcs": "assets/jump.png" },
+        { "name": "platform", "srcs": "assets/platform.png" },
+        { "name": "tile", "srcs": "assets/tile.png" },
+        { "name": "walk1", "srcs": "assets/walk1.png" },
+        { "name": "walk2", "srcs": "assets/walk2.png" }
+      ]
+    }
+  ]
+}

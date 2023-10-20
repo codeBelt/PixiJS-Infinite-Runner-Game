@@ -1,24 +1,31 @@
 {
-  "name": "match3",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "pixijs-infinite-runner-game",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "webpack --config webpack/prod.js ",
-    "start": "webpack-dev-server --config webpack/base.js --open"
+    "---------- Dev --------------------------------------------------------": "",
+    "dev": "vite",
+    "preview": "vite preview",
+    "---------- Prod -------------------------------------------------------": "",
+    "build": "tsc && vite build",
+    "---------- Linting ----------------------------------------------------": "",
+    "prettier": "npx prettier --write \"./**/*.{ts,tsx,js,jsx,json,md}\"",
+    "ts": "tsc --noEmit",
+    "---------- Helper Commands --------------------------------------------": "",
+    "up": "yarn upgrade-interactive --latest",
+    "-----------------------------------------------------------------------": ""
   },
   "dependencies": {
-    "gsap": "^3.10.4",
-    "pixi.js": "^6.5.1",
-    "matter-js": "^0.18.0"
+    "gsap": "3.12.2",
+    "matter-js": "0.19.0",
+    "pixi.js": "7.3.1"
   },
   "devDependencies": {
-    "babel-loader": "^8.2.5",
-    "clean-webpack-plugin": "^4.0.0",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.3",
-    "webpack-merge": "^5.8.0"
+    "@types/matter-js": "0.19.2",
+    "prettier": "3.0.3",
+    "type-fest": "4.5.0",
+    "typescript": "5.2.2",
+    "vite": "4.4.11"
   }
 }
