@@ -19,13 +19,13 @@
   "dependencies": {
     "gsap": "3.12.2",
     "matter-js": "0.19.0",
-    "pixi.js": "7.3.1"
+    "pixi.js": "7.3.2"
   },
   "devDependencies": {
     "@types/matter-js": "0.19.2",
     "prettier": "3.0.3",
     "type-fest": "4.5.0",
     "typescript": "5.2.2",
-    "vite": "4.4.11"
+    "vite": "4.5.0"
   }
 }
