@@ -1,7 +1,7 @@
-import * as PIXI from 'pixi.js';
 import { Config } from './Config.ts';
+import { Text } from 'pixi.js';
 
-export class LabelScore extends PIXI.Text {
+export class LabelScore extends Text {
   constructor() {
     super();
     this.x = Config.score.x;

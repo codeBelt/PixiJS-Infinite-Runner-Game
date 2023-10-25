@@ -1,9 +1,8 @@
 import Matter, { Body } from 'matter-js';
-import * as PIXI from 'pixi.js';
 import { App } from '../main.ts';
 import { Diamond } from './Diamond.ts';
 import { Config } from './Config.ts';
-import { Container } from 'pixi.js';
+import { Container, Texture } from 'pixi.js';
 
 export class Platform {
   container: Container;
@@ -19,7 +18,7 @@ export class Platform {
   constructor(rows: number, cols: number, x: number) {
     this._rows = rows;
     this._cols = cols;
-    this._tileSize = PIXI.Texture.from('tile').width;
+    this._tileSize = Texture.from('tile').width;
     this._width = this._tileSize * this._cols;
     this._height = this._tileSize * this._rows;
 

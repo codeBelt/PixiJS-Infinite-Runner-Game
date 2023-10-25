@@ -1,12 +1,11 @@
 import Matter, { Engine } from 'matter-js';
-import * as PIXI from 'pixi.js';
 import { Loader } from './Loader.ts';
 import { ScenesManager } from './ScenesManager.ts';
-import { Sprite, Texture } from 'pixi.js';
+import { Application, Sprite, Texture } from 'pixi.js';
 
 export class MainApplication {
   loader: Loader = new Loader();
-  app: PIXI.Application = new PIXI.Application({ resizeTo: window });
+  app: Application = new Application({ resizeTo: window });
   scenesManager: ScenesManager = new ScenesManager();
   physics: Engine = Matter.Engine.create();
 
